@@ -1,12 +1,13 @@
 import os
 import torch
-from model import TimeCNN, iTransformer, TimeMixer, PatchTST
+from model import TimeCNN, FilterTS, iTransformer, TimeMixer, PatchTST
 
 class Exp_Basic(object):
     def __init__(self, args):
         self.args = args
         self.model_dict = {
             'TimeCNN': TimeCNN,
+            'FilterTS': FilterTS,
             'iTransformer': iTransformer,
             'TimeMixer': TimeMixer,
             'PatchTST' : PatchTST

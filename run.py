@@ -90,6 +90,13 @@ if __name__ == '__main__':
     
     # PatchTST
     parser.add_argument('--pct_start', type=float, default=0.3, help='pct_start')
+    
+    # FilterTS
+    parser.add_argument('--embedding', type=str, default="fourier_interplate", help='embedding type')
+    parser.add_argument('--quantile', type=float, default=0.90, help='quantile for freq')
+    parser.add_argument('--bandwidth', type=float, default=1, help='static filter bandwidth')
+    parser.add_argument('--filter_type', type=str, default='all', help='filter type')
+    parser.add_argument('--top_K_static_freqs', type=int, default=10, help='build static filter')
 
 
     args = parser.parse_args()
