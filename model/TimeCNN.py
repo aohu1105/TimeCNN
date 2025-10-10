@@ -29,8 +29,13 @@ class CrossCNN(nn.Module):
         #TimeCNN
         self.crosscnn = nn.Conv1d(seq_len, seq_len, c_in, groups=seq_len)
 
+        # self.cnn2d = nn.Conv2d(1, 1, kernel_size=(3, 3), padding=(1, 1))
+
+        #OneCNN
+        #self.onecnn = nn.Conv1d(1, 1, c_in, groups=1)
 
         self.dropout = nn.Dropout(dropout)
+        
     def forward(self, x):
         #input  x [B L N]
         #output x [B L N]
@@ -40,6 +45,23 @@ class CrossCNN(nn.Module):
         pad = x[:, :, 1:]
         pad = torch.cat([pad, x], dim=-1)
         x = self.dropout(self.crosscnn(pad)) + x
+        
+
+        '''
+        #2D CNN
+        y = x.unsqueeze(1)
+        x = self.dropout(self.cnn2d(y)).squeeze(1) + x
+        '''
+
+        '''
+        #OneCNN
+        B, L, N = x.shape
+        x = x.reshape(B * L, N).unsqueeze(1)
+        pad = x[:, :, 1:]
+        pad = torch.cat([pad, x], dim=-1)
+        x = self.dropout(self.onecnn(pad)) + x   
+        x = x.squeeze(1).reshape(B, L, N)
+        '''
 
         return x
 
@@ -68,6 +90,7 @@ class Model(nn.Module):
         #prediction
         self.linear_pred = nn.Linear(d_model, pred_len)
 
+
     def forward(self, x_enc, x_mark_enc, x_dec, x_mark_dec, mask=None):
         x = x_enc
         B, L, N = x.shape
@@ -82,6 +105,7 @@ class Model(nn.Module):
 
         #refine cross-variable interaction on time point
         x = self.crosscnn(x)
+
 
         #embedding
         x = self.emb(x.permute(0,2,1))

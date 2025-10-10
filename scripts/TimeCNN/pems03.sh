@@ -24,12 +24,12 @@ python -u run.py \
   --is_training 1 \
   --root_path ./dataset/PEMS/ \
   --data_path PEMS03.npz \
-  --model_id PEMS03_96_96 \
+  --model_id PEMS03_96_24 \
   --model $model_name \
   --data PEMS \
   --features M \
   --seq_len 96 \
-  --pred_len 96 \
+  --pred_len 24 \
   --e_layers 4 \
   --enc_in 358 \
   --des 'Exp' \
@@ -44,12 +44,12 @@ python -u run.py \
   --is_training 1 \
   --root_path ./dataset/PEMS/ \
   --data_path PEMS03.npz \
-  --model_id PEMS03_96_96 \
+  --model_id PEMS03_96_48 \
   --model $model_name \
   --data PEMS \
   --features M \
   --seq_len 96 \
-  --pred_len 96 \
+  --pred_len 48 \
   --e_layers 4 \
   --enc_in 358 \
   --des 'Exp' \

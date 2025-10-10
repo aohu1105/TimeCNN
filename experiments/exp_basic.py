@@ -1,12 +1,15 @@
 import os
 import torch
-from model import TimeCNN
+from model import TimeCNN, iTransformer, TimeMixer, PatchTST
 
 class Exp_Basic(object):
     def __init__(self, args):
         self.args = args
         self.model_dict = {
             'TimeCNN': TimeCNN,
+            'iTransformer': iTransformer,
+            'TimeMixer': TimeMixer,
+            'PatchTST' : PatchTST
         }
         self.device = self._acquire_device()
         self.model = self._build_model().to(self.device)
